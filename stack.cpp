@@ -1,7 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 #include "stack.h"
-#include <string.h>
+#include <cstring>
 
 Stack * create_stack(int initial_size)
 {
@@ -32,7 +32,7 @@ void push(Stack * stack, Item i)
 	if (stack->top>=stack->size-1)
 		reallocate(stack);
 	stack->contents[stack->top++] = i;
-	printf("--Pushded: %d\n", i);
+	// printf("--Pushed: %d\n", i);
 }
 
 Item pop(Stack * stack)
@@ -40,7 +40,7 @@ Item pop(Stack * stack)
 	if (is_empty(stack))
 		stack_underflow();
 	else {
-		printf("--Poped: %d\n", stack->contents[stack->top-1]);
+		// printf("--Popped: %d\n", stack->contents[stack->top-1]);
 		return stack->contents[--stack->top];
 	}
 	return '\0'; /* prevents compiler warning due to stack_underflow() call */
@@ -69,6 +69,7 @@ void stack_underflow(void)
 static void reallocate(Stack * stack)
 {
 	int * tmp = (int *)malloc(2*stack->size*sizeof(Item));
+	stack->size *=2;
 	memcpy(tmp, stack->contents, stack->size);
 	free(stack->contents);
 	stack->contents = tmp;

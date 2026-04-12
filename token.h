@@ -20,7 +20,7 @@ int type;
 int value;
 };
 
-struct operator {
+struct _operator {
 char symbol;
 int value;
 int precedence_in_stack;
@@ -28,7 +28,7 @@ int precedence_out_stack;
 };
 
 /* Array of operator descriptions */
-extern struct operator oplist[];
+extern struct _operator oplist[];
 char * GetNextToken(char * input, struct token * t);
 
 #endif /* PG_TOKEN_H */

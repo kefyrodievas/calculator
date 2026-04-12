@@ -1,13 +1,19 @@
-cmake_minimum_required(VERSION 4.1)
-project(calculator C)
+cmake_minimum_required(VERSION 4.2)
+project(calculator_cpp)
 
-set(CMAKE_C_STANDARD 11)
-add_executable(calculator main.c
-        eval.c
-        eval.h
-        stack.c
-        stack.h
-        token.c
-        token.h)
+set(CMAKE_CXX_STANDARD 20)
 
-target_link_libraries(calculator m)
+add_executable(calculator_cpp main.cpp
+        eval.cpp
+        stack.cpp
+        token.cpp)
+
+add_executable(runTests tests.cpp
+        eval.cpp
+        stack.cpp
+        token.cpp
+)
+target_link_libraries(runTests gtest gtest_main)
+add_test(NAME runTests COMMAND runTests)
+
+target_link_libraries(calculator_cpp m)

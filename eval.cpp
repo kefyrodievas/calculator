@@ -1,8 +1,8 @@
-#include <ctype.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
+#include <cctype>
+#include <cstdlib>
+#include <cstdio>
+#include <cstring>
+#include <cmath>
 #include "token.h"
 #include "stack.h"
 #include "eval.h"
@@ -60,7 +60,7 @@ char * toPostfix(char * infix, char * postfix) {
 		pop(op_stack);
 	}
 	
-	printf("Postfix Experssion: %s\n", postfix);
+	// printf("Postfix Experssion: %s\n", postfix);
 	
 	return postfix;
 }

@@ -1,11 +1,11 @@
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <ctype.h>
+#include <cstdlib>
+#include <cstdio>
+#include <cctype>
 #include "token.h"
 
 /* Array of operators */
-struct operator oplist[] = { {'+', OP_PLUS, 1, 1},
+struct _operator oplist[] = { {'+', OP_PLUS, 1, 1},
 {'-', OP_MINUS, 1, 1},
 {'*', OP_MULTIPLY, 2, 2},
 {'/', OP_DIVIDE, 2, 2},
