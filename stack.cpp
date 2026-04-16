@@ -2,6 +2,7 @@
 #include <cstdlib>
 #include "stack.h"
 #include <cstring>
+#include <iostream>
 
 Stack * create_stack(int initial_size)
 {
@@ -15,6 +16,7 @@ Stack * create_stack(int initial_size)
 void make_empty(Stack * stack)
 {
 	stack->top = 0;
+	stack->size = 0;
 }
 
 bool is_empty(Stack * stack)
@@ -22,10 +24,10 @@ bool is_empty(Stack * stack)
 	return stack->top == 0;
 }
 
-bool is_full(Stack * stack)
-{
-	return false;
-}
+// bool is_full(Stack * stack)
+// {
+// 	return false;
+// }
 
 void push(Stack * stack, Item i)
 {
@@ -62,7 +64,7 @@ void stack_overflow(void)
 
 void stack_underflow(void)
 {
-	printf("Not enough operands in expression\n");
+	std::cerr << "Not enough operands in expression\n";
 	exit(EXIT_FAILURE);
 }
 

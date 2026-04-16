@@ -47,6 +47,20 @@ TEST(StackTest, StackPeekShouldBeNewlyPushed) {
     int i = peek(s);
     ASSERT_EQ(i, 3);
 }
+TEST(StackTest, StackEmptiedShouldBeEmpty) {
+    Stack *s = create_stack(10);
+    push(s, 1);
+    push(s, 2);
+    push(s, 3);
+    make_empty(s);
+    int i = s->size;
+    ASSERT_EQ(i, 0);
+}
+TEST(StackTest, StackEmptyShouldUnderflow) {
+    Stack *s = create_stack(10);
+    ASSERT_DEATH(peek(s), "Not enough operands in expression\n");
+    ASSERT_DEATH(pop(s), "Not enough operands in expression\n");
+}
 
 //tokenizer tests
 
@@ -58,7 +72,9 @@ TEST(TokenizerTest, TokenizerShouldIdentifyDigitsAndOperators) {
     input = GetNextToken(input, &t);
     ASSERT_EQ(t.type, TOK_OPERAND);
 }
-//
+
+
+
 // TEST(TokenizerTest, TokenizerShouldIdentifyBadOperators) {
 //     char * input = "?123";
 //     token t;
@@ -75,12 +91,35 @@ TEST(EvalTest, EvalPostfixShouldBeFormedCorrectly) {
     ASSERT_EQ(strncmp(postfix, "1 123 + 4 *", 11), 0);
 }
 
+TEST(EvalTest, EvalParsePostfixShouldReturnStackEmptyWithTwoOperands) {
+    char * input = "+";
+    char postfix[256];
+
+    // std::cout << postfix;
+    ASSERT_EXIT(parsePostfix(toPostfix(input, postfix)), ::testing::ExitedWithCode(EXIT_FAILURE), "Stack empty!");
+}
+
 TEST(EvalTest, EvalPostfixShouldBeParsedCorrectly) {
-    char * input = "(1 + 123) * 4";
+    char * input = "(2 / 2 + 123 % 124) * (2^3 - 4 )";
     char postfix[256];
 
     // std::cout << postfix;
     ASSERT_EQ(parsePostfix(toPostfix(input, postfix)), 496);
+}
+TEST(EvalTest, EvalPostfixIdentifyWrongParenthesis) {
+    char * input = "(1 + 1";
+    char postfix[256];
+
+    // std::cout << postfix;
+    ASSERT_DEATH(parsePostfix(toPostfix(input, postfix)), "Wrong parenthesis.\n");
+}
+
+TEST(EvalTest, EvalPostfixIdentifyBadOperator) {
+    char * input = "1 ? 1";
+    char postfix[256];
+
+    // std::cout << postfix;
+    ASSERT_DEATH(parsePostfix(toPostfix(input, postfix)), "Bad operator: ?");
 }
 
 

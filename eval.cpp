@@ -7,6 +7,8 @@
 #include "stack.h"
 #include "eval.h"
 
+#include <iostream>
+
 int global_var=0;
 
 char * toPostfix(char * infix, char * postfix) {
@@ -53,7 +55,7 @@ char * toPostfix(char * infix, char * postfix) {
 		}
 		else 
 		{
-			printf("Wrong parenthesis.\n");
+			std::cerr <<"Wrong parenthesis.\n";
 			exit(EXIT_FAILURE);
 		}
 		
@@ -77,7 +79,7 @@ double parsePostfix(char * postfix) {
 		{
 			double a, b, value;
 			if ( opr_stack->top < 2 ) { /* Two operands on stack? */
-				puts("Stack empty!");
+				std::cerr << "Stack empty!";
 				exit(EXIT_FAILURE);
 			}
 
@@ -104,10 +106,11 @@ double parsePostfix(char * postfix) {
 				case OP_POWER:
 					value = pow(a, b);
 				break;
-				default:
-					printf("Bad operator: %c\n", oplist[t.value].symbol);
-					exit(EXIT_FAILURE);
-				break;
+				// default:
+				// 	// perror("Bad operator: )
+				// 	std::cerr << "Bad operator: " << oplist[t.value].symbol;
+				// 	exit(EXIT_FAILURE);
+				// break;
 			}
 			
 			push(opr_stack, value); /* Put value back on stack */

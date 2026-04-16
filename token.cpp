@@ -2,6 +2,8 @@
 #include <cstdlib>
 #include <cstdio>
 #include <cctype>
+#include <iostream>
+#include <iostream>
 #include "token.h"
 
 /* Array of operators */
@@ -36,7 +38,7 @@ char * GetNextToken(char * input, struct token * t) {
 		}
 		
 		if ( !found ) {
-			printf("Bad operator: %c\n", *input);
+			std::cerr << "Bad operator: " << *input;
 			exit(EXIT_FAILURE);
 		}
 		++input;
