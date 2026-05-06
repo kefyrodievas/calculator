@@ -6,10 +6,12 @@
 
 Stack * create_stack(int initial_size)
 {
-	Stack * s = (Stack *)malloc(sizeof(Stack));
-	s->contents = (int *)malloc(initial_size*sizeof(Item));
-	s->top=0;
-	s->size=initial_size;
+	Stack * s = static_cast<Stack *>(malloc(sizeof(Stack)));
+	if (s != NULL) {
+		s->contents = static_cast<int *>(malloc(initial_size*sizeof(Item)));
+		s->top=0;
+		s->size=initial_size;
+	}
 	return s;
 }
 
@@ -19,7 +21,7 @@ void make_empty(Stack * stack)
 	stack->size = 0;
 }
 
-bool is_empty(Stack * stack)
+bool is_empty(const Stack * stack)
 {
 	return stack->top == 0;
 }
@@ -70,10 +72,13 @@ void stack_underflow(void)
 
 static void reallocate(Stack * stack)
 {
-	int * tmp = (int *)malloc(2*stack->size*sizeof(Item));
-	stack->size *=2;
-	memcpy(tmp, stack->contents, stack->size);
-	free(stack->contents);
-	stack->contents = tmp;
+	int * tmp = static_cast<int *>(malloc(2*stack->size*sizeof(Item)));
+	if (tmp != NULL) {
+		stack->size *=2;
+		memcpy(tmp, stack->contents, stack->size);
+		free(stack->contents);
+		stack->contents = tmp;
+	}
+
 }
 

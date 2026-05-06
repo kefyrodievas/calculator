@@ -19,7 +19,7 @@ struct _operator oplist[] = { {'+', OP_PLUS, 1, 1},
 
 char * GetNextToken(char * input, struct token * t) {
 	while ( *input && isspace(*input) ) /* Skip leading whitespace */
-	++input;
+	input++;
 	if ( *input == 0 ) /* Check for end of input */
 		return NULL;
 	if ( isdigit(*input) ) { /* Token is an operand */
@@ -34,14 +34,14 @@ char * GetNextToken(char * input, struct token * t) {
 				t->value = oplist[n].value;
 				found = 1;
 			}
-			++n;
+			n++;
 		}
 		
 		if ( !found ) {
 			std::cerr << "Bad operator: " << *input;
 			exit(EXIT_FAILURE);
 		}
-		++input;
+		input++;
 	}
 	
 	return input;

@@ -99,7 +99,6 @@ double parsePostfix(char * postfix) {
 				case OP_DIVIDE:
 					value = a / b;
 				break;
-
 				case OP_MOD:
 					value = fmod(a, b);
 				break;
